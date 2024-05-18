@@ -14,7 +14,7 @@ const JWT_SECRET = 'ankushisagooddb$oy'
 
 
 
-//ROUTE 2 : Create a User using: POST "/api/auth/createuser". No login required
+//ROUTE 2 : Create a User using: POST "/api/notes/createuser". No login required
 router.post('/createuser', [
   body('name', 'Enter a valid name').isLength({ min: 3 }),
   body('email', 'Enter a valid email').isEmail(),
@@ -85,7 +85,7 @@ router.post('/createuser', [
 
 
 
-// ROUTE 2 : Create a User using: POST "/api/auth/login". No login required
+// ROUTE 2 : Create a User using: POST "/api/notes/login". No login required
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'password  can not be blank').exists(),  // exists() means password will not be blank 
@@ -131,7 +131,7 @@ router.post('/login', [
 
 
 
-// ROUTE 3 : Get loggined in Details using : POST "/api/auth/getuser". Login required
+// ROUTE 3 : Get loggined in Details using : POST "/api/notes/getuser". Login required
 router.post('/getuser',fetchuser ,async (req, res) => {
 
 

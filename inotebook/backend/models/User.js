@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
+    
     name : {
         type: String,
         require: true
@@ -26,6 +27,6 @@ const UserSchema = new Schema({
  
   
   const  User = mongoose.model('user',UserSchema);
-  User.createIndexes();  // this line not allow you to create duplicate email   
+//   User.createIndexes();  // this line not allow you to create duplicate email   
 
  module.exports = User;

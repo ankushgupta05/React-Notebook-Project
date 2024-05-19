@@ -42,3 +42,11 @@ https://www.npmjs.com/package/jsonwebtoken
 https://jwt.io/
 
  -->
+
+
+ <!-- 
+ install 
+
+ npm install cors
+ 
+  -->

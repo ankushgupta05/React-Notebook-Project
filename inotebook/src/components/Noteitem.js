@@ -6,7 +6,7 @@ const Noteitem = (props) => {
     const context = useContext(noteContext);
     const { deleteNote } = context;
 
-    const { note } = props;
+    const { note, updateNote } = props;
 
 
     return (
@@ -17,7 +17,7 @@ const Noteitem = (props) => {
                     <p className="card-text">{note.description}. </p>
                     <i className="fa-regular fa-trash-can" onClick={()=>{deleteNote(note._id)}}></i>
                     {/* when user click than above line given id of user */}
-                    <i className="fa-solid fa-pen-to-square mx-3"></i>
+                    <i className="fa-solid fa-pen-to-square mx-3" onClick={()=>{updateNote(note)}} ></i>
                 </div>
             </div>
         </div>

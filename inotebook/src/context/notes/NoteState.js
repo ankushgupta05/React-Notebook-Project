@@ -45,19 +45,9 @@ const NoteState = (props) => {
         // return response.json();
         // const json = response.json();
 
-        console.log("Adding a new note")
-
-        const note = {
-            "_id": "1212126648c76d17d5168597eb1ea0",
-            "user": "121212664892ea44e79b07ef770bb6",
-            "title": title,
-            "description": description,
-            "tag": tag,
-            "date": "2024-05-17T18:30:00.000Z",
-            "__v": 0
-        };
-
+        const note = await response.json();
         setNotes(notes.concat(note))  // concat return an new error value after pushing note
+        
 
     }
 
@@ -91,7 +81,7 @@ const NoteState = (props) => {
 
         // API Call
         const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDg5MmVhNDRlNzliMDdlZjc3MGJiNiIsImlhdCI6MTcxNjAzMjI1Mn0.UsMlAohhNV5WOuJKUeNQHCk2zgJ0ZSp4qXR8a9RcCbk'
@@ -103,16 +93,20 @@ const NoteState = (props) => {
 
 
         // Logic to edit in client
-        for (let index = 0; index < notes.length; index++) {
-            const element = notes[index];
+
+        let newNotes =await JSON.parse(JSON.stringify(notes));
+        for (let index = 0; index < newNotes.length; index++) {
+            const element = newNotes[index];
             if (element._id === id) {
-                element.title = title;
-                element.description = description;
-                element.tag = tag;
+                newNotes[index].title = title;
+                newNotes[index].description = description;
+                newNotes[index].tag = tag;
+                break;
             }
 
-
         }
+        setNotes(newNotes)
+
     }
 
 

@@ -6,7 +6,7 @@ const Noteitem = (props) => {
     const context = useContext(noteContext);
     const { deleteNote } = context;
 
-    const { note, updateNote } = props;
+    const { note, updateNote, editNote } = props;
 
 
     return (

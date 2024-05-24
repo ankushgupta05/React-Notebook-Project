@@ -18,7 +18,7 @@ const NoteState = (props) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDg5MmVhNDRlNzliMDdlZjc3MGJiNiIsImlhdCI6MTcxNjAzMjI1Mn0.UsMlAohhNV5WOuJKUeNQHCk2zgJ0ZSp4qXR8a9RcCbk'
+                'auth-token': localStorage.getItem('token')
             },
         });
 
@@ -38,7 +38,7 @@ const NoteState = (props) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDg5MmVhNDRlNzliMDdlZjc3MGJiNiIsImlhdCI6MTcxNjAzMjI1Mn0.UsMlAohhNV5WOuJKUeNQHCk2zgJ0ZSp4qXR8a9RcCbk'
+                'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({title, description,tag})
         });
@@ -62,11 +62,11 @@ const NoteState = (props) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDg5MmVhNDRlNzliMDdlZjc3MGJiNiIsImlhdCI6MTcxNjAzMjI1Mn0.UsMlAohhNV5WOuJKUeNQHCk2zgJ0ZSp4qXR8a9RcCbk'
+                'auth-token': localStorage.getItem('token')
             },
         });
         // return response.json();
-        const json = response.json();
+        const json = response.json();  // not need now
 
         console.log(json);
         console.log('delete note id is ' + id);
@@ -84,12 +84,17 @@ const NoteState = (props) => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDg5MmVhNDRlNzliMDdlZjc3MGJiNiIsImlhdCI6MTcxNjAzMjI1Mn0.UsMlAohhNV5WOuJKUeNQHCk2zgJ0ZSp4qXR8a9RcCbk'
+                'auth-token': localStorage.getItem('token')
             },
             body: JSON.stringify({title, description, tag})
         });
         // return response.json();
         const json = response.json();
+        console.log(json)
+        
+
+
+
 
 
         // Logic to edit in client

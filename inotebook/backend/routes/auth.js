@@ -20,6 +20,7 @@ router.post('/createuser', [
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'Enter a valid password').isLength({ min: 5 }),
 ], async (req, res) => {
+  let success = false;
   console.log(req.body);
 
   // If there are return  Bad request and the errors 
@@ -30,13 +31,12 @@ router.post('/createuser', [
 
   try {
 
-
     // copy from template
     // it check user exists or not if user email have then return user email.
     let user = await User.findOne({ email: req.body.email });
     console.log(user)
     if (user) {
-      return res.status(400).json({ error: 'Sorry a user with this email already exists' })
+      return res.status(400).json({success ,error: 'Sorry a user with this email already exists' })
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -66,7 +66,8 @@ router.post('/createuser', [
     const authtoken = jwt.sign(data, JWT_SECRET);  // it will be provid one auth token for the user verification
     console.log(authtoken)
 
-    res.json({ authtoken: authtoken })
+    success = true;
+    res.json({ success, authtoken: authtoken })
 
     // res.send(req.body)
     // res.json(user)
@@ -85,11 +86,13 @@ router.post('/createuser', [
 
 
 
-// ROUTE 2 : Create a User using: POST "/api/notes/login". No login required
+// ROUTE 2 : Login User using: POST "/api/notes/login". No login required
 router.post('/login', [
   body('email', 'Enter a valid email').isEmail(),
   body('password', 'password  can not be blank').exists(),  // exists() means password will not be blank 
 ], async (req, res) => {
+
+  let success = false;
 
   // If there are return  Bad request and the errors 
   const errors = validationResult(req);
@@ -106,16 +109,18 @@ router.post('/login', [
     }
     const passwordCompare = await bcrypt.compare(password, user.password);
     if (!passwordCompare) {
-      return res.status(404).json({ errors: 'Please try to login with correct ccredentials' });
+      success = false;
+      return res.status(404).json({ success, errors: 'Please try to login with correct ccredentials' });
     }
 
 
     const data = {
       id: user.id
     }
+    success = true;
     const authtoken = jwt.sign(data, JWT_SECRET);  // it will be provid one auth token for the user verification
     console.log(authtoken)
-    res.json({ authtoken: authtoken })
+    res.json({ success, authtoken: authtoken })
 
   } catch (error) {
     console.error(error.message);
@@ -132,7 +137,7 @@ router.post('/login', [
 
 
 // ROUTE 3 : Get loggined in Details using : POST "/api/notes/getuser". Login required
-router.post('/getuser',fetchuser ,async (req, res) => {
+router.post('/getuser', fetchuser, async (req, res) => {
 
 
   try {
